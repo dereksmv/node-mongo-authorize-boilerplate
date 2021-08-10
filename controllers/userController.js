@@ -35,13 +35,13 @@ router.post("/register", (req, res) => {
                 email: email
             }
             let newUser = new User(userFormatted);
-            const savedUser = newUser.save((err, doc) => {
+            const savedUser = newUser.save(async (err, doc) => {
                 if (err) {
                     console.log(err);
                     res.json(err);
                 }
                 if (doc) {
-                    const user = User.findOne(newUser);
+                    const user = await User.findOne({username});
                     const token = jwt.sign(
                         { _id: user._id, email },
                         process.env.TOKEN_KEY,
