@@ -9,7 +9,7 @@ const users = require("./controllers/userController");
 
 const db = process.env.MONGO_URI;
 
-const port = 5000 || process.env.PORT;
+const port = process.env.PORT;
 
 mongoose.connect(db, { useUnifiedTopology: true, useNewUrlParser: true, useFindAndModify: false } )
   .then(() => console.log("MongoDB successfully connected"))
