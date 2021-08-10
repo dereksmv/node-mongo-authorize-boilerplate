@@ -21,6 +21,12 @@ router.post("/register", (req, res) => {
         }
         //failed all other if statements, so we know this is a new username
         if (!doc) {
+            //validate req.body
+            if (!username || !password || !email) {
+                return res.json({
+                    message: "Please enter all fields"
+                })
+            }
             //encrypt the password 
             const hashedPassword = await bcrypt.hash(password, 10)
             let userFormatted = {
@@ -34,9 +40,6 @@ router.post("/register", (req, res) => {
                     console.log(err);
                     res.json(err);
                 }
-
-              
-
                 if (doc) {
                     const user = User.findOne(newUser);
                     const token = jwt.sign(
