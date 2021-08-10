@@ -68,10 +68,14 @@ router.post("/register", (req, res) => {
 router.post("/login", async (req, res) => {
     const { username, password } = req.body;
     let user = await User.findOne({username});
-   
+    
+    //validate request
+    if (!username || !password) {
+        return res.json({message: "Please enter both a username and a password"});
+    }
 
     if (!user) {
-        res.json({message: "A user with that username name does not exist.", authenticated: false});
+        return res.json({message: "A user with that username name does not exist.", authenticated: false});
     }
     if (user && await bcrypt.compare(password, user.password)) {
         const token = jwt.sign(
@@ -100,9 +104,16 @@ router.post("/login", async (req, res) => {
 
 //use this route to view user data
 router.get("/me", auth, (req, res) => {
-    res.json(
-        req.user
-    )
-})
+        let _id = req.user._id;
+        User.findOne({_id}, (err, doc) => {
+            if (err) {
+                console.log(err);
+            }
+            doc.password = "This is a protected field";
+            res.json(doc);
+        });
+
+
+});
 
 module.exports = router;
