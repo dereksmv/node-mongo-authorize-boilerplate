@@ -1,0 +1,21 @@
+{
+  "name": "mongo-node-authorizer",
+  "version": "1.0.0",
+  "description": "Boilerplate authorization for MERN, MEVN and MEAN apps that uess JWTs to authenticate requests",
+  "main": "index.js",
+  "scripts": {
+    "test": "test",
+    "dev": "nodemon index.js",
+    "start": "node index.js"
+  },
+  "author": "Derek Smith",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.13.5",
+    "nodemon": "^2.0.12"
+  }
+}
